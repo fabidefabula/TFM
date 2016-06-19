@@ -6,7 +6,7 @@ package com.example.usuario.ludiuca.clases;
 public class Actitud {
     private String nombre;
     private String descripcion;
-    private boolean estado;
+    private boolean tipo;
     private String imagenActitud;
     private int monedas;
     private int puntos;

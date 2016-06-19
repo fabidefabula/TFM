@@ -32,10 +32,13 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorBackground"
             android:id="@+id/editUser"
             android:layout_margin="10dp"
             android:layout_marginRight="0dp"
-            android:layout_marginLeft="0dp" />
+            android:layout_marginLeft="0dp"
+            android:editable="true"
+            android:text="fabidefabula@gmail.com" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,10 +52,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:background="@color/colorBackground"
             android:ems="10"
             android:id="@+id/editPass"
             android:layout_weight="0"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:editable="true"
+            android:text="1234" />
 
         <Button
             android:layout_width="wrap_content"
