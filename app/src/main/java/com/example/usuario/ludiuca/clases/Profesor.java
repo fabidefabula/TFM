@@ -17,6 +17,7 @@ public class Profesor extends Entidad {
     private String nickName;
     private int exp;
     private int level;
+    private int id;
     private String fotoPerfil, idProfesor;
     private ArrayList<Clase> clasesProfe = new ArrayList<>();
     private ArrayList<Medalla> medallasProfe = new ArrayList<>();
@@ -28,6 +29,10 @@ public class Profesor extends Entidad {
 
     public Profesor() {
     }
+
+    public void setId(int id) {this.id = id;}
+
+    public int getId() {return id;}
 
     public void setNickName(String nickName) {
         this.nickName = nickName;

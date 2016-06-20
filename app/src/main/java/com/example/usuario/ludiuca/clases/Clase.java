@@ -21,7 +21,7 @@ public class Clase {
     private HashMap<Fecha, Notificacion> notificacionesClase;
     private ArrayList<Notificacion> notificacionArray = new ArrayList<>();
     ArrayList<Notificacion> buscada;
-
+    private int idClase, idAsignatura, idCurso;
 
     public Clase(String asignatura,  String curso, String imagenCurso, String letra) {
         this.asignatura = asignatura;
@@ -29,6 +29,14 @@ public class Clase {
         this.curso = curso;
         this.imagenCurso = imagenCurso;
     }
+
+    public void setIdClase(int idClase) {this.idClase = idClase;}
+    public void setIdAsignatura(int idAsignatura) {this.idAsignatura = idAsignatura;}
+    public void setIdCurso(int idCurso) {this.idCurso = idCurso;}
+    public int getIdClase() {return idClase;}
+    public int getIdAsignatura() {return idAsignatura;}
+    public int getIdCurso() {return idCurso;}
+
     public void setNotificacionesClase(HashMap<Fecha, Notificacion> notificacionesClase) {this.notificacionesClase = notificacionesClase;}
     public String getAsignatura() {return asignatura;}
     public void setAlumnosClase(ArrayList<Alumno> alumnosClase) {this.alumnosClase = alumnosClase;}

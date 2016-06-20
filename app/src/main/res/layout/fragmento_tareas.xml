@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:id="@+id/layoutTareas"
     android:clickable="true">
 
@@ -11,23 +11,22 @@
         android:layout_height="wrap_content" />
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lvTareas"
-        android:layout_margin="20dp"
         android:clickable="true" />
 
     <ImageButton
         android:src="@android:drawable/ic_menu_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
+        android:id="@+id/bInsertaTarea"
         android:elevation="5dp"
         android:scaleType="center"
         android:adjustViewBounds="true"
         android:cropToPadding="false"
         android:focusableInTouchMode="false"
-        android:layout_gravity="right" />
+        android:layout_gravity="right|bottom" />
 
 
     <!--<android.support.design.widget.FloatingActionButton-->

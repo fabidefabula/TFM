@@ -57,15 +57,19 @@ public class FragmentoNotificaciones extends Fragment{
              month++;
             Fecha fechaSeleccionada = new Fecha(year +"-"+ month + "-" + dayOfMonth);
 
-            if(dayOfMonth<10 && month<10){
-                fechaSeleccionada.setFechaString(year + "-0" + month + "-0" + dayOfMonth);
-            }
-            if(month<10 && dayOfMonth>10){
-                fechaSeleccionada.setFechaString(year + "-0" + month + "-" + dayOfMonth);
-            }
-            if(dayOfMonth<10 && month>10){
-                fechaSeleccionada.setFechaString(year +"-"+ month + "-0" + dayOfMonth);
-            }
+            String mesBueno = (("" + month).toString().length() > 1) ? "-" + month : ("-0" + month);
+            String diaBueno = (("" + dayOfMonth).toString().length() > 1) ? "-" + dayOfMonth : ("-0" + dayOfMonth);
+            fechaSeleccionada.setFechaString(""+year + mesBueno + diaBueno);
+
+//            if(dayOfMonth<10 && month<10){
+//                fechaSeleccionada.setFechaString(year + "-0" + month + "-0" + dayOfMonth);
+//            }
+//            if(month<10 && dayOfMonth>10){
+//                fechaSeleccionada.setFechaString(year + "-0" + month + "-" + dayOfMonth);
+//            }
+//            if(dayOfMonth<10 && month>10){
+//                fechaSeleccionada.setFechaString(year +"-"+ month + "-0" + dayOfMonth);
+//            }
 
              System.out.println(fechaSeleccionada.getFechaString());
             try{

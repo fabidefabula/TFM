@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,9 +41,10 @@ public class FragmentoTareas extends Fragment {
     StringBuffer fechaCreacion = new StringBuffer();
 
 
-public FragmentoTareas(){
+    public FragmentoTareas() {
 
-}
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragmento_tareas, container, false);
@@ -50,31 +52,39 @@ public FragmentoTareas(){
         claseSeleccionada = DatosUsuario.getInstance().getClase();
         tareasClase = claseSeleccionada.getTareasClase();
         //System.out.println(tareasClase.get(0).getDescripcion());
-      //  TareasActivity actividad = (TareasActivity)getActivity();
+        //  TareasActivity actividad = (TareasActivity)getActivity();
         AdaptadorTareas adaptador = new AdaptadorTareas(getActivity(), tareasClase);
-       lvTareas = (ListView)rootView.findViewById(R.id.lvTareas);
+        lvTareas = (ListView) rootView.findViewById(R.id.lvTareas);
+        lvTareas.setAdapter(adaptador);
+        Button inserta = (Button)rootView.findViewById(R.id.bInsertaTarea);
+        inserta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-       lvTareas.setAdapter(adaptador);
+            }
+        });
 
         return rootView;
     }
 
-    class AdaptadorTareas extends ArrayAdapter<Tarea>{
+    class AdaptadorTareas extends ArrayAdapter<Tarea> {
         ArrayList<Tarea> tareas;
-     public  AdaptadorTareas(Context context, ArrayList<Tarea> tareas){
-         super(context, R.layout.listitem_tareas, tareas);
-         this.tareas = tareas;
 
-     }
+        public AdaptadorTareas(Context context, ArrayList<Tarea> tareas) {
+            super(context, R.layout.listitem_tareas, tareas);
+            this.tareas = tareas;
+
+        }
+
         public View getView(int position, View convertView, ViewGroup parent) {
             final int pos = position;
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.listitem_tareas, null);
 
-           TextView lblDescription = (TextView)item.findViewById(R.id.LblDescription);
-           lblDescription.setText(tareasClase.get(pos).getDescription());
-            TextView lblFechaCreacion = (TextView)item.findViewById(R.id.LblFechaCreacion);
-            TextView lblFechaEntrega = (TextView)item.findViewById(R.id.LblFechaEntrega);
+            TextView lblDescription = (TextView) item.findViewById(R.id.LblDescription);
+            lblDescription.setText(tareasClase.get(pos).getDescription());
+            TextView lblFechaCreacion = (TextView) item.findViewById(R.id.LblFechaCreacion);
+            TextView lblFechaEntrega = (TextView) item.findViewById(R.id.LblFechaEntrega);
             //arreglar
             lblFechaCreacion.setText("Fecha creación: " + tareasClase.get(pos).getFechaCreacionString());
             lblFechaEntrega.setText("Fecha entrega: " + tareasClase.get(pos).getFechaEntregaString());
@@ -103,10 +113,10 @@ public FragmentoTareas(){
 //                }
 //            });
 
-           // ImageView imagenClase = (ImageView)item.findViewById(R.id.imageClass);
+            // ImageView imagenClase = (ImageView)item.findViewById(R.id.imageClass);
             //imagenClase.setImageResource();
 
-            return(item);
+            return (item);
         }
 
     }

@@ -127,6 +127,9 @@ public class FragmentoLogin extends Fragment {
                             ArrayList<Tarea> tareasClase = new ArrayList<>();
                             ArrayList<Alumno> alumnosClase = new ArrayList<>();
                             clase1 = new Clase(clase.getString("SubjectName"), clase.getString("CourseName"), clase.getString("SubjectPicture"), clase.getString("Group"));
+                            clase1.setIdAsignatura(clase.getInt("idAsignatura"));
+                            clase1.setIdClase(clase.getInt("idClase"));
+                            clase1.setIdCurso(clase.getInt("idCurso"));
                             JSONArray tareas = clase.getJSONArray("Tareas");
                             clase1.setTareasClase(tareasClase);
                             JSONArray alumnos = clase.getJSONArray("Alumnos");
