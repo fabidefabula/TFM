@@ -12,10 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.daimajia.swipe.SwipeLayout;
+import com.example.usuario.ludiuca.AltaTareaActivity;
 import com.example.usuario.ludiuca.ClaseActivity;
 import com.example.usuario.ludiuca.PrincipalActivity;
 import com.example.usuario.ludiuca.R;
@@ -24,10 +29,12 @@ import com.example.usuario.ludiuca.clases.Clase;
 import com.example.usuario.ludiuca.clases.DatosUsuario;
 import com.example.usuario.ludiuca.clases.Profesor;
 import com.example.usuario.ludiuca.clases.Tarea;
+import com.example.usuario.ludiuca.clases.Webservice;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by fabio on 30/03/2016.
@@ -56,15 +63,27 @@ public class FragmentoTareas extends Fragment {
         AdaptadorTareas adaptador = new AdaptadorTareas(getActivity(), tareasClase);
         lvTareas = (ListView) rootView.findViewById(R.id.lvTareas);
         lvTareas.setAdapter(adaptador);
-        Button inserta = (Button)rootView.findViewById(R.id.bInsertaTarea);
+        ImageButton inserta = (ImageButton) rootView.findViewById(R.id.bInsertaTarea);
+
         inserta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentoTareas.this.getActivity().startActivity(new Intent(rootView.getContext(), AltaTareaActivity.class));
             }
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+
+        tareasClase = claseSeleccionada.getTareasClase();
+        AdaptadorTareas adaptador = new AdaptadorTareas(getActivity(), tareasClase);
+        lvTareas = (ListView) rootView.findViewById(R.id.lvTareas);
+        lvTareas.setAdapter(adaptador);
+
+        super.onStart();
     }
 
     class AdaptadorTareas extends ArrayAdapter<Tarea> {
@@ -88,6 +107,77 @@ public class FragmentoTareas extends Fragment {
             //arreglar
             lblFechaCreacion.setText("Fecha creación: " + tareasClase.get(pos).getFechaCreacionString());
             lblFechaEntrega.setText("Fecha entrega: " + tareasClase.get(pos).getFechaEntregaString());
+            ImageView botonBorrarTarea = (ImageView) item.findViewById(R.id.ivBorrarTarea);
+            botonBorrarTarea.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    final int id = tareasClase.get(pos).getIdTarea();
+                    (new Thread() {
+                        public void run() {
+                            String response = null;
+                            try {
+                                HashMap<String, String> requestBody;
+                                requestBody = new HashMap<>();
+                                requestBody.put("operacion", "borrarTarea");
+                                requestBody.put("idTarea", "" + id);
+                                response = Webservice.getInstancia().operacionPost(requestBody);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            } finally {
+                                if (response == null) {
+                                    //Toast.makeText(rootView.getContext(), "Error al borrar", Toast.LENGTH_LONG).show();
+                                } else {
+                                    //Toast.makeText(rootView.getContext(), "Tarea borrada", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }
+                    }).start();
+                    tareasClase.remove(pos);
+                    notifyDataSetChanged();
+
+                }
+            });
+            SwipeLayout swipeLayout = (SwipeLayout) item.findViewById(R.id.swipe);
+
+//set show mode.
+            swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+
+//add drag edge.(If the BottomView has 'layout_gravity' attribute, this line is unnecessary)
+            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, item.findViewById(R.id.bottom_wrapper));
+
+            swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
+                @Override
+                public void onClose(SwipeLayout layout) {
+                    //when the SurfaceView totally cover the BottomView.
+                }
+
+                @Override
+                public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
+                    //you are swiping.
+                }
+
+                @Override
+                public void onStartOpen(SwipeLayout layout) {
+
+                }
+
+                @Override
+                public void onOpen(SwipeLayout layout) {
+                    //when the BottomView totally show.
+                }
+
+                @Override
+                public void onStartClose(SwipeLayout layout) {
+
+                }
+
+                @Override
+                public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
+                    //when user's hand released.
+                }
+            });
 //
 //            TextView lblCurso = (TextView)item.findViewById(R.id.LblCurso);
 //            lblCurso.setText(String.valueOf(clases.get(position).getCurso()));

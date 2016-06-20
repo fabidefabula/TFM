@@ -1,51 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:weightSum="5"
-    android:orientation="vertical">
 
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/swipe"
+    android:layout_height="80dp">
+    <!-- Bottom View Start-->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="160dp"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="5"
-        android:padding="5dp">
+        android:background="#66ddff00"
+        android:weightSum="1">
+        <!--What you want to show-->
+
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_gravity="center_vertical"
-            android:id="@+id/clickTarea">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ff0000">
 
-            <TextView android:id="@+id/LblDescription"
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_margin="5dp" />
+                android:layout_height="match_parent"
+                android:id="@+id/ivBorrarTarea"
+                android:src="@drawable/ic_delete_forever_white_48dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside" />
+        </LinearLayout>
+    </LinearLayout>
+    <!-- Bottom View End-->
 
-            <TextView android:id="@+id/LblFechaCreacion"
+    <!-- Surface View Start -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:padding="10dp">
+        <!--What you want to show in SurfaceView-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="5">
+
+            <LinearLayout
+                android:id="@+id/clickTarea"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/LblDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="normal"
+                    android:layout_margin="5dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/LblFechaCreacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
                     android:textSize="12sp"
-                android:layout_margin="5dp"
-                android:layout_weight="1" />
+                    android:textStyle="normal" />
 
-            <TextView
-                android:id="@+id/LblFechaEntrega"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="normal"
-                android:textSize="12sp"
-                android:layout_margin="5dp"
-                android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/LblFechaEntrega"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
         </LinearLayout>
-
     </LinearLayout>
-
-
-</LinearLayout>
+    <!-- Surface View End -->
+</com.daimajia.swipe.SwipeLayout>

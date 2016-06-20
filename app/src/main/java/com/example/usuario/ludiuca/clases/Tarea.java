@@ -15,6 +15,7 @@ public class Tarea {
     private String fechaEntregaString;
     private String fechaCreacionString;
     private String description;
+    private int idTarea;
 
     public String getDescription() {
         return description;
@@ -27,6 +28,9 @@ public class Tarea {
     }
     public String getFechaEntregaString() {return fechaEntregaString;}
     public String getFechaCreacionString() {return fechaCreacionString;}
+
+    public int getIdTarea() {return idTarea;}
+    public void setIdTarea(int idTarea) {this.idTarea = idTarea;}
 
     public Tarea(String description, String fechaCreacion, String fechaEntrega){
         this.fechaCreacionString = fechaCreacion;

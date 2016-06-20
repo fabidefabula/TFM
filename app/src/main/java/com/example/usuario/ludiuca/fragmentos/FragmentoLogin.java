@@ -139,6 +139,7 @@ public class FragmentoLogin extends Fragment {
                                 JSONObject tarea = tareas.getJSONObject(r);
                                 Tarea tarea2;
                                 tarea2 = new Tarea(tarea.getString("Description"), tarea.getString("Createdate"), tarea.getString("Finishdate"));
+                                tarea2.setIdTarea(tarea.getInt("idTarea"));
                                 tareasClase.add(tarea2);
                             }
                             //Tomamos las notificaciones de cada clase
