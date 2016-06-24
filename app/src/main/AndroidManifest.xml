@@ -52,6 +52,11 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".CambiarAvatarProfeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 

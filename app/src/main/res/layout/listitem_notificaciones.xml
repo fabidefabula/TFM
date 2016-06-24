@@ -21,8 +21,8 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageClass"
+                android:layout_height="80dp"
+                android:id="@+id/notificacionEmoji"
                 android:src="@drawable/perro"
                 android:adjustViewBounds="true"
                 android:scaleType="centerInside"
@@ -39,7 +39,7 @@
             android:id="@+id/clickClase">
 
             <TextView android:id="@+id/LblDescription"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:layout_margin="5dp"

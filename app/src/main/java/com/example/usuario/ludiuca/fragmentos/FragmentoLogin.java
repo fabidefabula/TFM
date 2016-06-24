@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.example.usuario.ludiuca.PrincipalActivity;
 import com.example.usuario.ludiuca.R;
 import com.example.usuario.ludiuca.clases.Alumno;
+import com.example.usuario.ludiuca.clases.Avatar;
 import com.example.usuario.ludiuca.clases.Clase;
 import com.example.usuario.ludiuca.clases.Fecha;
 import com.example.usuario.ludiuca.clases.Grupo;
@@ -48,7 +49,10 @@ public class FragmentoLogin extends Fragment {
     String username, password;
     Profesor profesor;
     ArrayList<Alumno> alumnos;
-    ArrayList<Medalla> listaMedallas = new ArrayList<>();
+    ArrayList<Medalla> listaMedallasAlumnos= new ArrayList<>();
+    ArrayList<Medalla> listaMedallasProfesor= new ArrayList<>();
+    ArrayList<Avatar> listaAvataresAlumnos = new ArrayList<>();
+    ArrayList<Avatar> listaAvataresProfesor= new ArrayList<>();
 
 
     @Override
@@ -110,17 +114,60 @@ public class FragmentoLogin extends Fragment {
                     String mensaje = json.getString("Mensaje");
                     if (exito) {
                         JSONObject respuesta = json.getJSONObject("Respuesta");
+                        profesor = new Profesor(respuesta.getString("Name"), respuesta.getString("Surname"));
                         JSONArray clases = respuesta.getJSONArray("Clases");
-                        //Obtengo la lista completa de medallas disponibles
-                        JSONArray listaMedallasJSON = respuesta.getJSONArray("Medallas");
-                        for(int t=0 ; t < listaMedallasJSON.length(); t++){
-                            JSONObject medallaJSON = listaMedallasJSON.getJSONObject(t);
-                            Medalla medalla1 = new Medalla(medallaJSON.getString("Name"), medallaJSON.getString("Photo"));
-                            medalla1.setIdMedalla(medallaJSON.getString("idMedalla"));
+                        //Obtengo la lista completa de medallas disponibles para alumnos
+                        JSONArray listaMedallasJSONalumnos = respuesta.getJSONArray("Medallas Alumnos");
+                        for(int t=0 ; t < listaMedallasJSONalumnos.length(); t++){
+                            JSONObject medallaJSON = listaMedallasJSONalumnos.getJSONObject(t);
+                            Medalla medalla1 = new Medalla(medallaJSON.getInt("idMedallaAlumno"), medallaJSON.getString("Name"), medallaJSON.getString("Photo"));
                             medalla1.setDescripcion(medallaJSON.getString("Description"));
-                            listaMedallas.add(medalla1);
+                            listaMedallasAlumnos.add(medalla1);
                         }
-                        DatosUsuario.getInstance().setListaMedallas(listaMedallas);
+                        DatosUsuario.getInstance().setListaMedallasAlumnos(listaMedallasAlumnos);
+
+                        //Obtengo los avatares para los alumnos
+                        JSONArray listaAvataresAlumnosJSON = respuesta.getJSONArray("Avatares Alumno");
+                        for(int t=0 ; t < listaAvataresAlumnosJSON.length(); t++){
+                            JSONObject avatarJSON = listaAvataresAlumnosJSON.getJSONObject(t);
+                            Avatar avatar = new Avatar(avatarJSON.getInt("idAvatar"), avatarJSON.getString("Photo"));
+                            listaAvataresAlumnos.add(avatar);
+                        }
+                        DatosUsuario.getInstance().setAvataresAlumnos(listaAvataresAlumnos);
+
+
+                        //Obtengo los avatares para los profesores
+                        JSONArray listaAvataresProfesorJSON = respuesta.getJSONArray("Avatares Profesor");
+                        for(int t=0 ; t < listaAvataresProfesorJSON.length(); t++){
+                            JSONObject avatarJSON = listaAvataresProfesorJSON.getJSONObject(t);
+                            Avatar avatar = new Avatar(avatarJSON.getInt("idAvatar"), avatarJSON.getString("Photo"));
+                            listaAvataresProfesor.add(avatar);
+                        }
+                        DatosUsuario.getInstance().setAvataresProfe(listaAvataresProfesor);
+
+
+
+                        //Obtengo la lista completa de medallas disponibles para alumnos
+                        JSONArray listaMedallasJSONprofesor = respuesta.getJSONArray("Medallas Profesor");
+                        for(int t=0 ; t < listaMedallasJSONprofesor.length(); t++){
+                            JSONObject medallaJSON = listaMedallasJSONprofesor.getJSONObject(t);
+                            Medalla medalla1 = new Medalla(medallaJSON.getInt("idMedallaProfesor"), medallaJSON.getString("Name"), medallaJSON.getString("Photo"));
+                            medalla1.setDescripcion(medallaJSON.getString("Description"));
+                            listaMedallasProfesor.add(medalla1);
+                        }
+                        DatosUsuario.getInstance().setListaMedallasProfesor(listaMedallasProfesor);
+
+                        //Obtengo las medallas del profesor
+                        JSONArray medallasProfe = respuesta.getJSONArray("Medallas");
+                        ArrayList<Medalla> medallasProfeArray = new ArrayList<>();
+                        for (int i = 0; i < medallasProfe.length(); i++) {
+                            JSONObject medalla = medallasProfe.getJSONObject(i);
+                            Medalla medallaProfe = new Medalla(medalla.getInt("idMedallaProfesor"), medalla.getString("Name"), medalla.getString("Photo"));
+                            medallaProfe.setDescripcion(medalla.getString("Description"));
+                            medallasProfeArray.add(medallaProfe);
+                        }
+                        profesor.setMedallasProfe(medallasProfeArray);
+
                         //Obtengo las clases del profesor
                         for (int i = 0; i < clases.length(); i++) {
                             JSONObject clase = clases.getJSONObject(i);
@@ -151,6 +198,7 @@ public class FragmentoLogin extends Fragment {
                             for(int q = 0; q < notificaciones.length(); q++){
                                 JSONObject notificacion = notificaciones.getJSONObject(q);
                                 Notificacion notificacion1 = new Notificacion(notificacion.getString("Description"), notificacion.getString("Date"), notificacion.getInt("idNotification"));
+                                notificacion1.setEmoji(notificacion.getString("Emoji"));
                                 notificacionesHash.put(notificacion1.getFecha(), notificacion1);
                                 notificacionArray.add(notificacion1);
                             }
@@ -176,8 +224,7 @@ public class FragmentoLogin extends Fragment {
                                 //De cada alumno tomamos las medallas que tiene
                                 for (int k = 0; k < medallas.length(); k++) {
                                     JSONObject medallaJson = medallas.getJSONObject(k);
-                                    Medalla medallica = new Medalla(medallaJson.getString("Name"), medallaJson.getString("Photo"));
-                                    medallica.setIdMedalla(medallaJson.getString("idMedalla"));
+                                    Medalla medallica = new Medalla(medallaJson.getInt("idMedallaAlumno"), medallaJson.getString("Name"), medallaJson.getString("Photo"));
                                     medallica.setIdAsignatura(medallaJson.getString("idAsignatura"));
                                     medallica.setDescripcion(medallaJson.getString("Description"));
                                     arrayMedallas.add(medallica);
@@ -218,13 +265,13 @@ public class FragmentoLogin extends Fragment {
                             clasesProfe.add(clase1);
                         }
                         //Tomamos los datos del profesor para llenar el objeto
-                        profesor = new Profesor(respuesta.getString("Name"), respuesta.getString("Surname"));
                         profesor.setClasesProfe(clasesProfe);
                         profesor.setNickName(respuesta.getString("Nickname"));
                         profesor.setExp(respuesta.getInt("Experience"));
                         profesor.setLevel(respuesta.getInt("Level"));
                         profesor.setFotoPerfil(respuesta.getString("Photo"));
                         profesor.setIdProfesor(respuesta.getString("idProfesor"));
+
 
                         //Change the string value and launch intent to ActivityB
                         DatosUsuario.getInstance().setProfesor(profesor);

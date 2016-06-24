@@ -26,7 +26,8 @@ public class Notificacion {
 
     }
     public Notificacion(){}
-
+    public void setEmoji(String emoji) {this.emoji = emoji;}
+    public String getEmoji() {return emoji;}
     public int getId() {return id;}
     public String getDescription() {return description;}
     public Fecha getFecha() {return fecha;}

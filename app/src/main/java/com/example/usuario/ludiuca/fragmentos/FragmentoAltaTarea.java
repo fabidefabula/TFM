@@ -53,13 +53,13 @@ public class FragmentoAltaTarea extends Fragment {
     private String current = "";
     private String ddmmyyyy = "DDMMYYYY";
     private Calendar cal = Calendar.getInstance();
+
     ArrayList<Tarea> tareas;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragmento_altatarea, container, false);
         Button botonAlta = (Button) rootView.findViewById(R.id.bAlta);
-
 
         final EditText fechaEntrega = (EditText) rootView.findViewById(R.id.etFechaEntrega);
         fechaEntrega.addTextChangedListener(new TextWatcher() {
@@ -126,7 +126,7 @@ public class FragmentoAltaTarea extends Fragment {
                 // lo que haga cuando pulse
                 EditText descripcion = (EditText) rootView.findViewById(R.id.etDescripcion);
                 if(TextUtils.isEmpty(descripcion.getText())&& TextUtils.isEmpty(fechaEntrega.getText()) ){
-                    Toast.makeText(rootView.getContext(), "Campos vacíos0", Toast.LENGTH_LONG).show();
+                    Toast.makeText(rootView.getContext(), "Campos vacíos", Toast.LENGTH_LONG).show();
                 }else{
                     (new AltaTarea(descripcion.getText().toString(), fechaEntrega.getText().toString())).execute();
                 }
@@ -183,6 +183,7 @@ public class FragmentoAltaTarea extends Fragment {
                         for(int i=0; i<respuesta.length(); i++){
                             JSONObject jsonTarea = respuesta.getJSONObject(i);
                             Tarea tarea = new Tarea(jsonTarea.getString("Description"), jsonTarea.getString("Createdate"), jsonTarea.getString("Finishdate"));
+
                             tarea.setIdTarea(jsonTarea.getInt("idTarea"));
                             tareas.add(tarea);
                         }

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.example.usuario.ludiuca.TareasActivity;
 import com.example.usuario.ludiuca.clases.Clase;
 import com.example.usuario.ludiuca.clases.Profesor;
 import com.example.usuario.ludiuca.clases.DatosUsuario;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -38,7 +40,6 @@ public class FragmentoClases extends Fragment {
     View clase;
     View opciones;
 
-    int[] nombres;
     ArrayList<Clase> clases;
     Clase claseSeleccionada;
 
@@ -48,31 +49,13 @@ public class FragmentoClases extends Fragment {
 
         profe = DatosUsuario.getInstance().getProfesor();
         clases = DatosUsuario.getInstance().getProfesor().getClasesProfe();
-        //ImageButton buttonAdd = (ImageButton)rootView.findViewById(R.id.bAddClase);
         PrincipalActivity actividad = (PrincipalActivity)getActivity();
-        //actividad.. pa regenerar la activity
-       // listaClases= (ListView)rootView.findViewById(R.id.lvClases);
-        //listaClases.setAdapter(new AdaptadorVerAlumnos());
-//        ImageButton fab = (ImageButton)rootView.findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+
         AdaptadorClases adaptador = new AdaptadorClases(actividad, clases);
 
         lvClases = (ListView)rootView.findViewById(R.id.lvClases);
         lvClases.setAdapter(adaptador);
 
-//        lvClases.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//               claseSeleccionada = clases.get(position);
-//               DatosUsuario.getInstance().setClase(claseSeleccionada);getActivity().startActivity(new Intent(rootView.getContext(), ClaseActivity.class));
-//            }
-//
-//        });
 
         return rootView;
     }
@@ -91,9 +74,12 @@ public class FragmentoClases extends Fragment {
 
             TextView lblClase = (TextView)item.findViewById(R.id.LblClase);
             lblClase.setText(String.valueOf((clases.get(position).getAsignatura())));
-
             TextView lblCurso = (TextView)item.findViewById(R.id.LblCurso);
             lblCurso.setText(String.valueOf(clases.get(position).getCurso()));
+            ImageView claseim = (ImageView)item.findViewById(R.id.iClase);
+            ImageLoader imageLoader = ImageLoader.getInstance();
+            imageLoader.displayImage(clases.get(position).getImagenCurso(), claseim);
+
 
             clase = (LinearLayout)item.findViewById(R.id.clickClase);
             clase.setOnClickListener(new View.OnClickListener() {

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.example.usuario.ludiuca.R;
@@ -16,6 +17,8 @@ import com.example.usuario.ludiuca.clases.Clase;
 import com.example.usuario.ludiuca.clases.DatosUsuario;
 import com.example.usuario.ludiuca.clases.Fecha;
 import com.example.usuario.ludiuca.clases.Notificacion;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -40,8 +43,8 @@ public class FragmentoNotificaciones extends Fragment{
         rootView = inflater.inflate(R.layout.fragmento_notificaciones, container, false);
         final Clase clase = DatosUsuario.getInstance().getClase();
 
-       lvNotificaciones =(ListView)rootView.findViewById(R.id.lvNot);
-      fecha = (TextView)rootView.findViewById(R.id.tv_date);
+        lvNotificaciones =(ListView)rootView.findViewById(R.id.lvNot);
+        fecha = (TextView)rootView.findViewById(R.id.tv_date);
         notificaciones = clase.getNotificacionArray();
         notificacionesHash = clase.getNotificacionesClase();
 
@@ -61,16 +64,6 @@ public class FragmentoNotificaciones extends Fragment{
             String diaBueno = (("" + dayOfMonth).toString().length() > 1) ? "-" + dayOfMonth : ("-0" + dayOfMonth);
             fechaSeleccionada.setFechaString(""+year + mesBueno + diaBueno);
 
-//            if(dayOfMonth<10 && month<10){
-//                fechaSeleccionada.setFechaString(year + "-0" + month + "-0" + dayOfMonth);
-//            }
-//            if(month<10 && dayOfMonth>10){
-//                fechaSeleccionada.setFechaString(year + "-0" + month + "-" + dayOfMonth);
-//            }
-//            if(dayOfMonth<10 && month>10){
-//                fechaSeleccionada.setFechaString(year +"-"+ month + "-0" + dayOfMonth);
-//            }
-
              System.out.println(fechaSeleccionada.getFechaString());
             try{
                 clase.getNotificationsByDate(fechaSeleccionada);
@@ -80,7 +73,7 @@ public class FragmentoNotificaciones extends Fragment{
             }
 
             fecha.setText(fechaSeleccionada.getFechaString());
-            AdaptadorNotificaciones adaptador1 = new AdaptadorNotificaciones(getActivity(), clase.getBuscada());
+            AdaptadorNotificaciones adaptador1 = new AdaptadorNotificaciones(getActivity(), clase.getArrayNotificacionesByDate());
             lvNotificaciones.setAdapter(adaptador1);
          }
         });
@@ -101,6 +94,9 @@ public class FragmentoNotificaciones extends Fragment{
 
             TextView lblDescription = (TextView)item.findViewById(R.id.LblDescription);
             lblDescription.setText(notificaciones.get(pos).getDescription());
+            ImageView emoji = (ImageView)item.findViewById(R.id.notificacionEmoji);
+            ImageLoader imageLoader = ImageLoader.getInstance();
+            imageLoader.displayImage(notificaciones.get(pos).getEmoji(), emoji);
 
             return(item);
         }

@@ -2,45 +2,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:weightSum="5"
+    android:weightSum="3"
     android:orientation="vertical"
     android:id="@+id/clickAlumno">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:layout_height="75dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
 
-        <TextView android:id="@+id/LblNombre"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_margin="5dp"
-            android:layout_weight="1" />
+            android:layout_weight="2">
 
-        <TextView android:id="@+id/LblNick"
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/imageAlumno"
+                android:adjustViewBounds="true"
+                android:src="@drawable/perro" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="normal"
-            android:textSize="12sp"
-            android:layout_margin="5dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right">
 
-    </LinearLayout>
+            <TextView android:id="@+id/LblNombre"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:layout_gravity="right" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="4">
+            <TextView android:id="@+id/LblNick"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="normal"
+                android:textSize="12sp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:layout_gravity="right" />
+        </LinearLayout>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/abc_text_size_display_1_material"
-            android:id="@+id/imageAlumno"
-            android:src="@drawable/perro"
-            android:layout_gravity="right" />
     </LinearLayout>
 
 

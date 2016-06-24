@@ -41,7 +41,7 @@ public class Profesor extends Entidad {
     public String getIdProfesor() {return idProfesor;}
     public void setIdProfesor(String idProfesor) {this.idProfesor = idProfesor;}
     public void setLevel(int level) {this.level = level;}
-    public void setMedallasProfe(ArrayList<Medalla> medallas){}
+    public void setMedallasProfe(ArrayList<Medalla> medallas){medallasProfe = medallas;}
     public void setFotoPerfil(String fotoPerfil) {this.fotoPerfil = fotoPerfil;}
     public void setClasesProfe(ArrayList<Clase> clasesProfe) {
         this.clasesProfe = clasesProfe;

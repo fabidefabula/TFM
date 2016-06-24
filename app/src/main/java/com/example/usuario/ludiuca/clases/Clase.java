@@ -37,6 +37,10 @@ public class Clase {
     public int getIdAsignatura() {return idAsignatura;}
     public int getIdCurso() {return idCurso;}
 
+    public String getImagenCurso() {
+        return imagenCurso;
+    }
+
     public void setNotificacionesClase(HashMap<Fecha, Notificacion> notificacionesClase) {this.notificacionesClase = notificacionesClase;}
     public String getAsignatura() {return asignatura;}
     public void setAlumnosClase(ArrayList<Alumno> alumnosClase) {this.alumnosClase = alumnosClase;}
@@ -70,7 +74,7 @@ public class Clase {
     public HashMap<Fecha, Notificacion> getNotificacionesClase() {return notificacionesClase;}
     public ArrayList<Notificacion> getNotificacionArray() {return notificacionArray;}
 
-    public ArrayList<Notificacion> getBuscada() {
+    public ArrayList<Notificacion> getArrayNotificacionesByDate() {
         return buscada;
     }
 
