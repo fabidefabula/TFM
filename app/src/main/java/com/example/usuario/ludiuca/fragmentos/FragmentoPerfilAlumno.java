@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -44,7 +43,6 @@ public class FragmentoPerfilAlumno extends Fragment {
         rootView = inflater.inflate(R.layout.fragmento_perfil_alumno, container, false);
         alumno = DatosUsuario.getInstance().getAlumno();
 
-        Button botonChange = (Button)rootView.findViewById(R.id.b_change);
         TextView name = (TextView)rootView.findViewById(R.id.tv_nombre);
         TextView level = (TextView)rootView.findViewById(R.id.tv_level);
         TextView exp= (TextView)rootView.findViewById(R.id.tv_exp);
@@ -61,26 +59,15 @@ public class FragmentoPerfilAlumno extends Fragment {
         exp.setText(exp.getText() + String.valueOf(alumno.getExp()));
         nick.setText(nick.getText() + String.valueOf(alumno.getNickName()));
 
-
         medallas  = alumno.getMedallasAlumno();
         privilegios = alumno.getPrivilegiosAlumno();
-
         AdaptadorMedallas adaptadorM = new AdaptadorMedallas(getActivity(), medallas);
         lvMedallas = (GridView)rootView.findViewById(R.id.gvMedallas);
         lvMedallas.setAdapter(adaptadorM);
 
         AdaptadorPrivilegios adaptadorP =  new AdaptadorPrivilegios(getActivity(), privilegios);
-        lvlPrivilegios = (ListView)rootView.findViewById(R.id.lvPrivilegios);
+        lvlPrivilegios = (ListView)rootView.findViewById(R.id.lvPrivilegiosAlumno);
         lvlPrivilegios.setAdapter(adaptadorP);
-
-        botonChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // lo que haga cuando pulse
-
-
-            }
-        });
 
         return rootView;
     }
@@ -94,7 +81,6 @@ public class FragmentoPerfilAlumno extends Fragment {
 
         }
         public View getView(int position, View convertView, ViewGroup parent) {
-            final int pos = position;
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.listitem_medallas, null);
 
@@ -115,14 +101,13 @@ public class FragmentoPerfilAlumno extends Fragment {
         ArrayList<Privilegio> privilegios;
 
         public  AdaptadorPrivilegios(Context context, ArrayList<Privilegio> privilegios){
-            super(context, R.layout.listitem_privilegios, privilegios);
+            super(context, R.layout.listitem_privilegios_alumno, privilegios);
             this.privilegios = privilegios;
 
         }
         public View getView(int position, View convertView, ViewGroup parent) {
-            final int pos = position;
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            View item = inflater.inflate(R.layout.listitem_privilegios, null);
+            View item = inflater.inflate(R.layout.listitem_privilegios_alumno, null);
 
             TextView lblNombrePrivilegio= (TextView)item.findViewById(R.id.LblNombre);
             lblNombrePrivilegio.setText(String.valueOf((privilegios.get(position).getNombre())));

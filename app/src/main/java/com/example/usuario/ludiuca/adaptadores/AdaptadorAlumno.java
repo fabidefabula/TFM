@@ -9,6 +9,7 @@ import com.example.usuario.ludiuca.fragmentos.FragmentoClase;
 import com.example.usuario.ludiuca.fragmentos.FragmentoDarMedalla;
 import com.example.usuario.ludiuca.fragmentos.FragmentoPerfil;
 import com.example.usuario.ludiuca.fragmentos.FragmentoPerfilAlumno;
+import com.example.usuario.ludiuca.fragmentos.FragmentoPrivilegios;
 
 /**
  * Created by fabio on 11/04/2016.
@@ -34,9 +35,7 @@ public class AdaptadorAlumno extends FragmentPagerAdapter {
             case 1:
                 return new FragmentoDarMedalla();
             case 2:
-                return new FragmentoPerfil();
-            case 3:
-                return new FragmentoPerfilAlumno();
+                return new FragmentoPrivilegios();
         }
         return null;
     }
@@ -48,14 +47,12 @@ public class AdaptadorAlumno extends FragmentPagerAdapter {
             case 1:
                 return "Dar Medalla";
             case 2:
-                return "Actitudes";
-            case 3:
                 return "Privilegios";
         }
         return "";
     }
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 }

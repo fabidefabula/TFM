@@ -6,11 +6,13 @@ import java.util.HashMap;
 /**
  * Created by Usuario on 17/02/2016.
  */
-public class Alumno extends Entidad {
-    private String nombre, idAlumno, apellidos, nickName, fotoPerfil;
-    private int exp;
+public class Alumno{
+    private String nombre,  apellidos, nickName, fotoPerfil;
+    private int exp, idAlumno;
     private int level;
     private int monedas;
+    private boolean flag = false;
+    private boolean yaEstaba = false;
     private ArrayList<Medalla> medallasAlumno = new ArrayList<>();
     private ArrayList<Clase> clasesAlumno = new ArrayList<>();
     private ArrayList<Grupo> gruposAlumno = new ArrayList<>();
@@ -25,9 +27,27 @@ public class Alumno extends Entidad {
         return nombre;
     }
 
+    public int getIdAlumno() {
+        return idAlumno;
+    }
 
+    public boolean isFlag() {
+        return flag;
+    }
 
-    public void setIdAlumno(String idAlumno) {
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
+    public boolean isYaEstaba() {
+        return yaEstaba;
+    }
+
+    public void setYaEstaba(boolean yaEstaba) {
+        this.yaEstaba = yaEstaba;
+    }
+
+    public void setIdAlumno(int idAlumno) {
         this.idAlumno = idAlumno;
     }
 
@@ -61,15 +81,15 @@ public class Alumno extends Entidad {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof Alumno) {
-            Alumno p = (Alumno)o;
-            return this.idAlumno.equals(p.idAlumno);
-        } else {
-            return false;
-        }
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (o instanceof Alumno) {
+//            Alumno p = (Alumno)o;
+//            return this.idAlumno.equals(p.idAlumno);
+//        } else {
+//            return false;
+//        }
+//    }
 
     public void setNickName(String nickName) {
         this.nickName = nickName;

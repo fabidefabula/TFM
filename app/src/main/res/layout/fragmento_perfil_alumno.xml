@@ -24,13 +24,6 @@
                 android:adjustViewBounds="true"
                 android:layout_margin="10dp" />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cambiar"
-                android:id="@+id/b_change"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -97,7 +90,7 @@
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/lvPrivilegios" />
+            android:id="@+id/lvPrivilegiosAlumno" />
 
         <TextView
             android:layout_width="wrap_content"

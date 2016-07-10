@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import com.example.usuario.ludiuca.PrincipalActivity;
 import com.example.usuario.ludiuca.R;
+import com.example.usuario.ludiuca.clases.Actitud;
 import com.example.usuario.ludiuca.clases.Alumno;
 import com.example.usuario.ludiuca.clases.Avatar;
 import com.example.usuario.ludiuca.clases.Clase;
@@ -53,6 +54,7 @@ public class FragmentoLogin extends Fragment {
     ArrayList<Medalla> listaMedallasProfesor= new ArrayList<>();
     ArrayList<Avatar> listaAvataresAlumnos = new ArrayList<>();
     ArrayList<Avatar> listaAvataresProfesor= new ArrayList<>();
+    ArrayList<Avatar> listaAvataresGrupos= new ArrayList<>();
 
 
     @Override
@@ -115,6 +117,25 @@ public class FragmentoLogin extends Fragment {
                     if (exito) {
                         JSONObject respuesta = json.getJSONObject("Respuesta");
                         profesor = new Profesor(respuesta.getString("Name"), respuesta.getString("Surname"));
+                        //Obtengo las actitudes
+                        JSONArray actitudes = respuesta.getJSONArray("Actitudes");
+                        ArrayList<Actitud> actitudesBuenas = new ArrayList<>();
+                        ArrayList<Actitud> actitudesMalas = new ArrayList<>();
+
+                        for(int i=0; i< actitudes.length(); i++){
+                            JSONObject actitudJson = actitudes.getJSONObject(i);
+                            Actitud actitud = new Actitud(actitudJson.getString("Name"), actitudJson.getInt("Experience"));
+                            actitud.setTipo(actitudJson.getInt("Type"));
+                            if(actitud.getTipo()==1){
+                                actitudesBuenas.add(actitud);
+                            }
+                            else{
+                                actitudesMalas.add(actitud);
+                            }
+                        }
+                        DatosUsuario.getInstance().setActitudesBuenas(actitudesBuenas);
+                        DatosUsuario.getInstance().setActitudesMalas(actitudesMalas);
+
                         JSONArray clases = respuesta.getJSONArray("Clases");
                         //Obtengo la lista completa de medallas disponibles para alumnos
                         JSONArray listaMedallasJSONalumnos = respuesta.getJSONArray("Medallas Alumnos");
@@ -125,6 +146,15 @@ public class FragmentoLogin extends Fragment {
                             listaMedallasAlumnos.add(medalla1);
                         }
                         DatosUsuario.getInstance().setListaMedallasAlumnos(listaMedallasAlumnos);
+
+                        //Obtengo los avatares para los grupos de alumnos
+                        JSONArray listaAvataresGrupoJSON = respuesta.getJSONArray("Avatares Grupos");
+                        for(int t=0 ; t < listaAvataresGrupoJSON.length(); t++){
+                            JSONObject avatarJSON = listaAvataresGrupoJSON.getJSONObject(t);
+                            Avatar avatar = new Avatar(avatarJSON.getInt("idAvatar"), avatarJSON.getString("Photo"));
+                            listaAvataresGrupos.add(avatar);
+                        }
+                        DatosUsuario.getInstance().setAvataresGrupos(listaAvataresGrupos);
 
                         //Obtengo los avatares para los alumnos
                         JSONArray listaAvataresAlumnosJSON = respuesta.getJSONArray("Avatares Alumno");
@@ -143,8 +173,17 @@ public class FragmentoLogin extends Fragment {
                             Avatar avatar = new Avatar(avatarJSON.getInt("idAvatar"), avatarJSON.getString("Photo"));
                             listaAvataresProfesor.add(avatar);
                         }
-                        DatosUsuario.getInstance().setAvataresProfe(listaAvataresProfesor);
 
+                        DatosUsuario.getInstance().setAvataresProfe(listaAvataresProfesor);
+                        //Obtenemos los privilegios disponibles de la clase
+                        ArrayList<Privilegio> privilegiosClase = new ArrayList<>();
+                        JSONArray privilegios= respuesta.getJSONArray("Privilegios");
+                        for(int r=0; r < privilegios.length(); r++){
+                            JSONObject privilegioJson = privilegios.getJSONObject(r);
+                            Privilegio privilegio = new Privilegio(privilegioJson.getString("Description"), privilegioJson.getString("Name"), privilegioJson.getInt("idPrivilegio"));
+                            privilegiosClase.add(privilegio);
+                        }
+                        DatosUsuario.getInstance().setPrivilegios(privilegiosClase);
 
 
                         //Obtengo la lista completa de medallas disponibles para alumnos
@@ -177,6 +216,7 @@ public class FragmentoLogin extends Fragment {
                             clase1.setIdAsignatura(clase.getInt("idAsignatura"));
                             clase1.setIdClase(clase.getInt("idClase"));
                             clase1.setIdCurso(clase.getInt("idCurso"));
+                            clase1.setLetra(clase.getString("Group"));
                             JSONArray tareas = clase.getJSONArray("Tareas");
                             clase1.setTareasClase(tareasClase);
                             JSONArray alumnos = clase.getJSONArray("Alumnos");
@@ -189,6 +229,8 @@ public class FragmentoLogin extends Fragment {
                                 tarea2.setIdTarea(tarea.getInt("idTarea"));
                                 tareasClase.add(tarea2);
                             }
+
+
                             //Tomamos las notificaciones de cada clase
                             HashMap<Fecha, Notificacion> notificacionesHash = new HashMap<>();
 
@@ -216,7 +258,7 @@ public class FragmentoLogin extends Fragment {
                                 alumno2.setLevel(alumno.getInt("Level"));
                                 alumno2.setExp(alumno.getInt("Experience"));
                                 alumno2.setMonedas(alumno.getInt("Coins"));
-                                alumno2.setIdAlumno(alumno.getString("idAlumno"));
+                                alumno2.setIdAlumno(alumno.getInt("idAlumno"));
                                 hmClase.put(alumno.getString("idAlumno"), alumno2);
 
                                 JSONArray medallas = alumno.getJSONArray("Medallas");
@@ -232,35 +274,36 @@ public class FragmentoLogin extends Fragment {
                                 alumno2.setMedallasAlumno(arrayMedallas);
 
                                 //De cada alumno tomamos los privilegios que tiene
-                                JSONArray privilegios = alumno.getJSONArray("Privilegios");
+                                JSONArray privilegiosAlumno = alumno.getJSONArray("Privilegios");
                                 ArrayList<Privilegio> arrayPrivilegios = new ArrayList<>();
-                                for (int m = 0; m < privilegios.length(); m++) {
-                                    JSONObject privilegioJson = privilegios.getJSONObject(m);
-                                    Privilegio privilegio = new Privilegio(privilegioJson.getString("Name"), privilegioJson.getString("Description"));
-                                    privilegio.setIdPrivilegio(privilegioJson.getString("idPrivilegio"));
+                                for (int m = 0; m < privilegiosAlumno.length(); m++) {
+                                    JSONObject privilegioJson = privilegiosAlumno.getJSONObject(m);
+                                    Privilegio privilegio = new Privilegio(privilegioJson.getString("Description"), privilegioJson.getString("Name"), privilegioJson.getInt("idPrivilegio"));
                                     arrayPrivilegios.add(privilegio);
                                 }
                                 alumno2.setPrivilegiosAlumno(arrayPrivilegios);
                             }
                             //De cada clase tomamos los grupos de alumnos
                             ArrayList<Grupo> gruposClase = new ArrayList<>();
-                            ArrayList<Alumno> alumnosGrupo = new ArrayList<>();
                             JSONArray gruposJson = clase.getJSONArray("Grupos");
 
                             for(int w = 0; w<gruposJson.length(); w++) {
                                 JSONObject grupoJson = gruposJson.getJSONObject(w);
                                 Grupo grupo1 = new Grupo(clase1, grupoJson.getString("Name"), grupoJson.getString("Photo"));
-                                gruposClase.add(grupo1);
-                                grupo1.setAlumnosGrupo(alumnosGrupo);
+                                grupo1.setIdGrupo(grupoJson.getInt("idGrupo"));
+                                ArrayList<Alumno> alumnosGrupo = new ArrayList<>();
+
                                 JSONArray alumnosGrupoJson = grupoJson.getJSONArray("Alumnos");
+
                                 for(int a=0; a<alumnosGrupoJson.length(); a++){
                                     JSONObject alumnoJson = alumnosGrupoJson.getJSONObject(a);
-                                   //Alumno alumno1;
                                     alumnosGrupo.add(hmClase.get(alumnoJson.getString("idAlumno")));
-                                    //alumno1.setIdAlumno(alumnoJson.getString("idAlumno"));
                                 }
+
                                 grupo1.setAlumnosGrupo(alumnosGrupo);
+                                gruposClase.add(grupo1);
                                 clase1.setGruposClase(gruposClase);
+
                             }
                             clasesProfe.add(clase1);
                         }

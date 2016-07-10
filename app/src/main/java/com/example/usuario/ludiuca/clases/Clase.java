@@ -2,6 +2,7 @@ package com.example.usuario.ludiuca.clases;
 
 import android.app.Notification;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,18 +11,19 @@ import java.util.HashMap;
  * Created by Usuario on 17/02/2016.
  */
 public class Clase {
-    String asignatura;
-    String curso, letra;
-    String imagenCurso;
-    ArrayList<Alumno> alumnosClase;
-    ArrayList<Tarea> tareasClase= new ArrayList<>();
-    ArrayList<Actitud> actitudesClase= new ArrayList<>();
-    ArrayList<Grupo> gruposClase = new ArrayList<>();
+    private String asignatura;
+    private String curso, letra;
+    private String imagenCurso;
+    private ArrayList<Alumno> alumnosClase;
+    private  ArrayList<Tarea> tareasClase= new ArrayList<>();
+    private ArrayList<Actitud> actitudesClase= new ArrayList<>();
+    private  ArrayList<Grupo> gruposClase = new ArrayList<>();
     private HashMap<String, Alumno> alumnoId= new HashMap<String, Alumno>();
     private HashMap<Fecha, Notificacion> notificacionesClase;
     private ArrayList<Notificacion> notificacionArray = new ArrayList<>();
-    ArrayList<Notificacion> buscada;
+    private  ArrayList<Notificacion> buscada;
     private int idClase, idAsignatura, idCurso;
+
 
     public Clase(String asignatura,  String curso, String imagenCurso, String letra) {
         this.asignatura = asignatura;
@@ -30,17 +32,25 @@ public class Clase {
         this.imagenCurso = imagenCurso;
     }
 
+    public String getLetra() {
+        return letra;
+    }
+
+    public ArrayList<Actitud> getActitudesClase() {
+        return actitudesClase;
+    }
+
+    public void setActitudesClase(ArrayList<Actitud> actitudesClase) {
+        this.actitudesClase = actitudesClase;
+    }
+
     public void setIdClase(int idClase) {this.idClase = idClase;}
     public void setIdAsignatura(int idAsignatura) {this.idAsignatura = idAsignatura;}
     public void setIdCurso(int idCurso) {this.idCurso = idCurso;}
     public int getIdClase() {return idClase;}
     public int getIdAsignatura() {return idAsignatura;}
     public int getIdCurso() {return idCurso;}
-
-    public String getImagenCurso() {
-        return imagenCurso;
-    }
-
+    public String getImagenCurso() {return imagenCurso;}
     public void setNotificacionesClase(HashMap<Fecha, Notificacion> notificacionesClase) {this.notificacionesClase = notificacionesClase;}
     public String getAsignatura() {return asignatura;}
     public void setAlumnosClase(ArrayList<Alumno> alumnosClase) {this.alumnosClase = alumnosClase;}
@@ -69,14 +79,15 @@ public class Clase {
         return  hash * this.alumnoId.size();
     }
 
+
     public void setAlumnoId(Alumno alumno, String idAlumno){this.alumnoId.put(idAlumno,alumno);}
     public void setNotificacionArray(ArrayList<Notificacion> notificacionArray) {this.notificacionArray = notificacionArray;}
     public HashMap<Fecha, Notificacion> getNotificacionesClase() {return notificacionesClase;}
     public ArrayList<Notificacion> getNotificacionArray() {return notificacionArray;}
-
     public ArrayList<Notificacion> getArrayNotificacionesByDate() {
         return buscada;
     }
+
 
     public void getNotificationsByDate(Fecha fecha){
         int j=0;

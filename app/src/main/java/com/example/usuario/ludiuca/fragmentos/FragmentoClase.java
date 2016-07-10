@@ -57,38 +57,49 @@ public class FragmentoClase extends Fragment {
         return rootView;
     }
 
-    class AdaptadorClase extends ArrayAdapter<Alumno> {
-        ArrayList<Alumno> alumnos;
-        public  AdaptadorClase(Context context, ArrayList<Alumno> alumnos){
-            super(context, R.layout.lisitem_alumnos, alumnos);
-            this.alumnos = alumnos;
-        }
-        public View getView(int position, View convertView, ViewGroup parent) {
-            final int pos = position;
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            View item = inflater.inflate(R.layout.lisitem_alumnos, null);
-
-            TextView lblNombre = (TextView)item.findViewById(R.id.LblNombre);
-            lblNombre.setText(alumnos.get(position).getNombre());
-            //System.out.println(alumnos.get(position).getNombre());
-            TextView lblNick = (TextView)item.findViewById(R.id.LblNick);
-            lblNick.setText(alumnos.get(position).getNickName());
-            ImageView imagenAlumno = (ImageView)item.findViewById(R.id.imageAlumno);
-            ImageLoader imageLoader = ImageLoader.getInstance();
-            imageLoader.displayImage(alumnos.get(position).getFotoPerfil(), imagenAlumno);
-            alumno = (LinearLayout)item.findViewById(R.id.clickAlumno);
-            alumno.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    alumnoSeleccionado = alumnos.get(pos);
-                    DatosUsuario.getInstance().setAlumno(alumnoSeleccionado);
-
-                    getActivity().startActivity(new Intent(rootView.getContext(), AlumnoActivity.class));
-
-                }
-
-            });
-            return(item);
-        }
+    @Override
+    public void onStart() {
+        alumnos =  claseSeleccionada.getAlumnosClase();
+        AdaptadorClase adaptador = new AdaptadorClase(getActivity(), alumnos);
+        lvAlumnos = (ListView)rootView.findViewById(R.id.lvAlumnos);
+        lvAlumnos.setAdapter(adaptador);
+        super.onStart();
     }
-}
+
+                class AdaptadorClase extends ArrayAdapter<Alumno> {
+                    ArrayList<Alumno> alumnos;
+
+                    public AdaptadorClase(Context context, ArrayList<Alumno> alumnos) {
+                        super(context, R.layout.lisitem_alumnos, alumnos);
+                        this.alumnos = alumnos;
+                    }
+
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        final int pos = position;
+                        LayoutInflater inflater = LayoutInflater.from(getContext());
+                        View item = inflater.inflate(R.layout.lisitem_alumnos, null);
+
+                        TextView lblNombre = (TextView) item.findViewById(R.id.LblNombre);
+                        lblNombre.setText(alumnos.get(position).getNombre());
+                        //System.out.println(alumnos.get(position).getNombre());
+                        TextView lblNick = (TextView) item.findViewById(R.id.LblNick);
+                        lblNick.setText(alumnos.get(position).getNickName() + " - Nivel: " + alumnos.get(position).getLevel() +
+                        " - Exp: " + alumnos.get(position).getExp());
+                        ImageView imagenAlumno = (ImageView) item.findViewById(R.id.imageAlumno);
+                        ImageLoader imageLoader = ImageLoader.getInstance();
+                        imageLoader.displayImage(alumnos.get(position).getFotoPerfil(), imagenAlumno);
+                        alumno = (LinearLayout) item.findViewById(R.id.clickAlumno);
+                        alumno.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alumnoSeleccionado = alumnos.get(pos);
+                                DatosUsuario.getInstance().setAlumno(alumnoSeleccionado);
+                                getActivity().startActivity(new Intent(rootView.getContext(), AlumnoActivity.class));
+
+                            }
+
+                        });
+                        return (item);
+                    }
+                }
+            }

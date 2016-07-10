@@ -36,7 +36,7 @@ public class AdaptadorCambiarAvatarProfe extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Cambiar Avatar";
+                return "Elige nuevo avatar";
 
         }
         return "";

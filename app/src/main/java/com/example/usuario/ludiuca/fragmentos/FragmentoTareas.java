@@ -3,6 +3,7 @@ package com.example.usuario.ludiuca.fragmentos;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.PopupMenu.OnMenuItemClickListener;
@@ -45,7 +46,7 @@ public class FragmentoTareas extends Fragment {
     ListView lvTareas;
     ArrayList<Tarea> tareasClase;
     Clase claseSeleccionada;
-    StringBuffer fechaCreacion = new StringBuffer();
+
 
 
     public FragmentoTareas() {
@@ -58,12 +59,10 @@ public class FragmentoTareas extends Fragment {
 
         claseSeleccionada = DatosUsuario.getInstance().getClase();
         tareasClase = claseSeleccionada.getTareasClase();
-        //System.out.println(tareasClase.get(0).getDescripcion());
-        //  TareasActivity actividad = (TareasActivity)getActivity();
         AdaptadorTareas adaptador = new AdaptadorTareas(getActivity(), tareasClase);
         lvTareas = (ListView) rootView.findViewById(R.id.lvTareas);
         lvTareas.setAdapter(adaptador);
-        ImageButton inserta = (ImageButton) rootView.findViewById(R.id.bInsertaTarea);
+        FloatingActionButton inserta = (FloatingActionButton) rootView.findViewById(R.id.bInsertarTarea);
 
         inserta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,56 +177,12 @@ public class FragmentoTareas extends Fragment {
                     //when user's hand released.
                 }
             });
-//
-//            TextView lblCurso = (TextView)item.findViewById(R.id.LblCurso);
-//            lblCurso.setText(String.valueOf(clases.get(position).getCurso()));
-
-//            tarea = (LinearLayout)item.findViewById(R.id.clickTarea);
-//            tarea.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    claseSeleccionada = clases.get(pos);
-//                    DatosUsuario.getInstance().setClase(claseSeleccionada);
-//                    FragmentoTareas.this.getActivity().startActivity(new Intent(rootView.getContext(), TareasActivity.class));
-//
-//                }
-//
-//            });
-//            opciones = (LinearLayout)item.findViewById(R.id.clickOptions);
-//            opciones.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    claseSeleccionada = clases.get(pos);
-//                    DatosUsuario.getInstance().setClase(claseSeleccionada);
-//                    showPopup(v, claseSeleccionada);
-//                }
-//            });
-
-            // ImageView imagenClase = (ImageView)item.findViewById(R.id.imageClass);
-            //imagenClase.setImageResource();
 
             return (item);
         }
 
     }
 
-//    public void showPopup(View v, final Clase clase) {
-//        PopupMenu popup = new PopupMenu(rootView.getContext(), v);
-//        popup.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem arg0) {
-//                int id = arg0.getItemId();
-//
-//                if (id == R.id.ver_alumnos) {
-//                    getActivity().startActivity(new Intent(rootView.getContext(), ClaseActivity.class));
-//                }
-//
-//                return true;
-//            }
-//        });
-//        popup.inflate(R.menu.menu_clase);
-//        popup.show();
-//    }
 
 }
 

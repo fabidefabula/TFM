@@ -9,23 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="5"
-        android:weightSum="5">
+        android:weightSum="6">
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lvActitudes"
-            android:layout_weight="5"
-            android:layout_margin="10dp"
-            android:clickable="true" />
+            android:id="@+id/lvActitudesBuenas"
+            android:layout_weight="3"
+            android:clickable="true"
+            android:background="#cafbc8" />
 
-        <Button
-            android:layout_width="wrap_content"
+        <ListView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Opciones"
-            android:id="@+id/bOpciones"
-            android:layout_weight="1"
-            android:layout_gravity="center_horizontal" />
+            android:id="@+id/lvActitudesMalas"
+            android:layout_weight="3"
+            android:background="#fbc2c2" />
 
         <Button
             android:layout_width="wrap_content"

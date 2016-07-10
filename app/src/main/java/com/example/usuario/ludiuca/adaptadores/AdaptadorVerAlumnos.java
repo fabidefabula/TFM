@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.usuario.ludiuca.fragmentos.FragmentoActitudes;
 import com.example.usuario.ludiuca.fragmentos.FragmentoClase;
 import com.example.usuario.ludiuca.fragmentos.FragmentoClases;
 import com.example.usuario.ludiuca.fragmentos.FragmentoGrupos;
@@ -34,6 +35,8 @@ public class AdaptadorVerAlumnos extends FragmentPagerAdapter {
                 return new FragmentoClase();
             case 1:
                 return new FragmentoGrupos();
+            case 2:
+                return new FragmentoActitudes();
         }
         return null;
     }
@@ -44,11 +47,13 @@ public class AdaptadorVerAlumnos extends FragmentPagerAdapter {
                 return "Alumnos";
             case 1:
                 return "Grupos";
+            case 2:
+                return "Actitudes";
         }
         return "";
     }
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }

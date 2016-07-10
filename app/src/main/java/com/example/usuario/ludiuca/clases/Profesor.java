@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Usuario on 17/02/2016.
  */
 
-public class Profesor extends Entidad {
+public class Profesor{
     private String nombre;
     private String apellidos;
     private String nickName;

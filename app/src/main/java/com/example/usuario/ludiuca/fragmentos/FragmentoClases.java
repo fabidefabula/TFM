@@ -75,7 +75,7 @@ public class FragmentoClases extends Fragment {
             TextView lblClase = (TextView)item.findViewById(R.id.LblClase);
             lblClase.setText(String.valueOf((clases.get(position).getAsignatura())));
             TextView lblCurso = (TextView)item.findViewById(R.id.LblCurso);
-            lblCurso.setText(String.valueOf(clases.get(position).getCurso()));
+            lblCurso.setText(String.valueOf(clases.get(position).getCurso() + " "+ clases.get(position).getLetra()));
             ImageView claseim = (ImageView)item.findViewById(R.id.iClase);
             ImageLoader imageLoader = ImageLoader.getInstance();
             imageLoader.displayImage(clases.get(position).getImagenCurso(), claseim);

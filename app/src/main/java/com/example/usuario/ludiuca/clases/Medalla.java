@@ -7,8 +7,6 @@ public class Medalla {
     private String nombre;
     private String descripcion, idAsignatura;
     private String imagenMedalla;
-    private int opacidad;
-    private boolean estado;
     private boolean flag = false;
     private int idMedalla;
 
@@ -46,10 +44,4 @@ public class Medalla {
         return imagenMedalla;
     }
 
-    public int getOpacidad() {
-        return opacidad;
-    }
-    public boolean isEstado() {
-        return estado;
-    }
 }

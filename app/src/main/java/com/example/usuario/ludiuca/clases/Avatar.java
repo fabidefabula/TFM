@@ -14,7 +14,7 @@ public class Avatar {
 
     }
 
-    public Boolean getFlag() {
+    public Boolean isFlag() {
         return flag;
     }
 

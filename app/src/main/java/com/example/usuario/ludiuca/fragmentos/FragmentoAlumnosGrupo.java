@@ -33,7 +33,7 @@ public class FragmentoAlumnosGrupo extends Fragment {
     View rootView;
     Grupo grupoSeleccionado;
     ListView lvAlumnos;
-    ArrayList<Alumno> alumnos;
+    ArrayList<Alumno> alumnosGrupoSeleccionado;
     Alumno alumnoSeleccionado;
     LinearLayout alumno;
 
@@ -44,19 +44,20 @@ public class FragmentoAlumnosGrupo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragmento_alumnos_grupo, container, false);
         grupoSeleccionado = DatosUsuario.getInstance().getGrupoSeleccionado();
-        alumnos = grupoSeleccionado.getAlumnosGrupo();
-        AdaptadorAlumnosGrupo adaptador = new AdaptadorAlumnosGrupo(getActivity(), alumnos);
+        alumnosGrupoSeleccionado = grupoSeleccionado.getAlumnosGrupo();
+        AdaptadorAlumnosGrupo adaptador = new AdaptadorAlumnosGrupo(getActivity(), alumnosGrupoSeleccionado);
         lvAlumnos = (ListView)rootView.findViewById(R.id.lvAlumnosGrupo);
         lvAlumnos.setAdapter(adaptador);
         //return super.onCreateView(inflater, container, savedInstanceState);
+
         return rootView;
     }
 
     class AdaptadorAlumnosGrupo extends ArrayAdapter<Alumno> {
         ArrayList<Alumno> alumnos;
-        public  AdaptadorAlumnosGrupo(Context context, ArrayList<Alumno> alumnos){
-            super(context, R.layout.lisitem_alumnos_grupo, alumnos);
-            this.alumnos = alumnos;
+        public  AdaptadorAlumnosGrupo(Context context, ArrayList<Alumno> a){
+            super(context, R.layout.lisitem_alumnos_grupo, a);
+            this.alumnos = a;
         }
         public View getView(int position, View convertView, ViewGroup parent) {
             final int pos = position;

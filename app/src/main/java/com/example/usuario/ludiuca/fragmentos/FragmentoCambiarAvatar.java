@@ -104,7 +104,7 @@ public class FragmentoCambiarAvatar extends Fragment {
                 @Override
                 public void onClick(View v) {
                     for (int i = 0; i < avatares.size(); i++){
-                        if(avatares.get(i).getFlag()==false && i == position){
+                        if(avatares.get(i).isFlag()==false && i == position){
                             avatares.get(position).setFlag(true);
                             posicionElegido = i;
                         }else{

@@ -10,13 +10,21 @@ public class Grupo {
     private String nombre;
     private Clase clase;
     private String fotoGrupo;
+    private int idGrupo;
      ArrayList<Alumno> alumnosGrupo = new ArrayList<>();
-    final ArrayList<Tarea> tareasGrupo= new ArrayList<>();
 
     public Grupo(Clase clase, String nombre, String fotoGrupo) {
         this.clase = clase;
         this.nombre = nombre;
         this.fotoGrupo = fotoGrupo;
+    }
+
+    public int getIdGrupo() {
+        return idGrupo;
+    }
+
+    public void setIdGrupo(int idGrupo) {
+        this.idGrupo = idGrupo;
     }
 
     public String getNombre() {
