@@ -15,28 +15,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.example.usuario.ludiuca.AltaTareaActivity;
-import com.example.usuario.ludiuca.PrincipalActivity;
 import com.example.usuario.ludiuca.R;
-import com.example.usuario.ludiuca.TareasActivity;
 import com.example.usuario.ludiuca.clases.Alumno;
-import com.example.usuario.ludiuca.clases.Clase;
 import com.example.usuario.ludiuca.clases.DatosUsuario;
-import com.example.usuario.ludiuca.clases.Fecha;
-import com.example.usuario.ludiuca.clases.Grupo;
 import com.example.usuario.ludiuca.clases.Medalla;
-import com.example.usuario.ludiuca.clases.Notificacion;
-import com.example.usuario.ludiuca.clases.Privilegio;
 import com.example.usuario.ludiuca.clases.Profesor;
 import com.example.usuario.ludiuca.clases.Tarea;
 import com.example.usuario.ludiuca.clases.Webservice;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;

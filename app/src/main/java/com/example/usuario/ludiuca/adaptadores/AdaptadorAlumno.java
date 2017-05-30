@@ -5,8 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.usuario.ludiuca.MainActivityCamara;
 import com.example.usuario.ludiuca.fragmentos.FragmentoClase;
 import com.example.usuario.ludiuca.fragmentos.FragmentoDarMedalla;
+import com.example.usuario.ludiuca.fragmentos.FragmentoGaleria;
 import com.example.usuario.ludiuca.fragmentos.FragmentoPerfil;
 import com.example.usuario.ludiuca.fragmentos.FragmentoPerfilAlumno;
 import com.example.usuario.ludiuca.fragmentos.FragmentoPrivilegios;
@@ -36,6 +38,9 @@ public class AdaptadorAlumno extends FragmentPagerAdapter {
                 return new FragmentoDarMedalla();
             case 2:
                 return new FragmentoPrivilegios();
+           case 3:
+                return new FragmentoGaleria();
+
         }
         return null;
     }
@@ -48,11 +53,13 @@ public class AdaptadorAlumno extends FragmentPagerAdapter {
                 return "Dar Medalla";
             case 2:
                 return "Privilegios";
+            case 3:
+                return "Galería";
         }
         return "";
     }
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 }

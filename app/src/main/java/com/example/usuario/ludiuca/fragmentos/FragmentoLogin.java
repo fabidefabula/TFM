@@ -1,7 +1,7 @@
 package com.example.usuario.ludiuca.fragmentos;
 
 
-import android.app.Notification;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,6 +41,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by Usuario on 17/02/2016.
@@ -94,6 +96,13 @@ public class FragmentoLogin extends Fragment {
             String password = md5(pass);
             requestBody.put("password", password);
             requestBody.put("operacion", "login");
+
+
+            Iterator it = requestBody.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry e = (Map.Entry)it.next();
+                System.out.println(e.getKey() + " " + e.getValue());
+            }
         }
 
         @Override

@@ -26,6 +26,7 @@ public class AlumnoActivity extends ActionBarActivity{
             tabs.add(new SamplePagerItem("Alumno", Color.WHITE, Color.WHITE));
             tabs.add(new SamplePagerItem("Dar Medalla", Color.WHITE, Color.WHITE));
             tabs.add(new SamplePagerItem("Privilegios", Color.WHITE, Color.WHITE));
+            tabs.add(new SamplePagerItem("Galeria", Color.WHITE, Color.WHITE));
             ViewPager contenedorTabs = (ViewPager)findViewById(R.id.pager);
             AdaptadorAlumno adaptadoralumno = new AdaptadorAlumno(getSupportFragmentManager(), getApplicationContext());
             contenedorTabs.setAdapter(adaptadoralumno);
