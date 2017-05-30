@@ -199,7 +199,7 @@ public class SimplePhotoGalleryListFragment extends BaseFragment implements AbsL
         getActivity().invalidateOptionsMenu();
         ((BaseAdapter) mListView.getAdapter()).notifyDataSetChanged();
     }
-
+ // 
     /**
      * The default content for this Fragment has a TextView that is shown when
      * the list is empty. If you would like to change the text, call this method
